@@ -3,6 +3,7 @@ package com.java_43e.logisticsproject.controller;
 import com.java_43e.logisticsproject.entity.Bid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.java_43e.logisticsproject.service.database.BidDatabaseService;
 
@@ -22,8 +23,15 @@ public class BidController {
     }
 
     @GetMapping(value = "/bid-get/{id}")
-    public Optional<Bid> getBid(@PathVariable(name = "id") Integer id) {
-        return bidDatabaseService.findById(id);
+    public ResponseEntity<?> getBid(@PathVariable(name = "id") Integer id) {
+        Optional<Bid> bidOptional = bidDatabaseService.findById(id);
+        Bid bid = bidOptional.get();
+        return bidOptional != null ? ResponseEntity.ok(bid) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/check-bid/{id}")
+    public ResponseEntity<String> checkBid(@PathVariable Integer bidId) {
+        String result = bidDatabaseService.checkBid(bidId);
+        return ResponseEntity.ok(result);
     }
 }
-

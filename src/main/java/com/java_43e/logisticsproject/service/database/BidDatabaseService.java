@@ -9,4 +9,6 @@ public interface BidDatabaseService {
     void addBid(Bid bid);
 
     Optional<Bid> findById(Integer id);
+
+    String checkBid(Integer id);
 }
