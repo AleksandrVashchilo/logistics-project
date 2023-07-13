@@ -10,5 +10,5 @@ public interface BidDatabaseService {
 
     Optional<Bid> findById(Integer id);
 
-    String checkBid(Integer id);
+    Boolean checkBid(Integer id);
 }

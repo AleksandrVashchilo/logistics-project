@@ -26,12 +26,19 @@ public class BidController {
     public ResponseEntity<?> getBid(@PathVariable(name = "id") Integer id) {
         Optional<Bid> bidOptional = bidDatabaseService.findById(id);
         Bid bid = bidOptional.get();
+        //return bidOptional.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
         return bidOptional != null ? ResponseEntity.ok(bid) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/check-bid/{id}")
-    public ResponseEntity<String> checkBid(@PathVariable Integer bidId) {
-        String result = bidDatabaseService.checkBid(bidId);
-        return ResponseEntity.ok(result);
+    @GetMapping("/bid-check/{id}")
+    public ResponseEntity<String> checkBid(@PathVariable Integer id) {
+
+        Boolean result = bidDatabaseService.checkBid(id);
+        if (result) {
+            return ResponseEntity.ok("Все хорошо");
+        } else {
+            return ResponseEntity.ok("Все плохо");
+        }
     }
 }
+

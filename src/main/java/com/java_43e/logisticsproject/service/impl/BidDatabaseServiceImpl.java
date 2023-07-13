@@ -10,6 +10,8 @@ import com.java_43e.logisticsproject.service.database.BidDatabaseService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
 
 @Service
@@ -18,17 +20,17 @@ public class BidDatabaseServiceImpl implements BidDatabaseService {
 
     private final BidRepository bidRepository;
 
-    @Value(value = "${reference.cost.1km")
-    private int referenceCost1Km;
-    @Value(value = "${reference.dot.class")
+    @Value(value = "${reference.cost.1km}")
+    private BigDecimal referenceCost1Km;
+    @Value(value = "${reference.dot.class}")
     private int referenceDotClass;
-    @Value(value = "${reference.temperature")
+    @Value(value = "${reference.temperature}")
     private boolean referenceTemperature;
-    @Value(value = "${reference.weight")
+    @Value(value = "${reference.weight}")
     private int referenceWeight;
-    @Value(value = "${reference.volume")
+    @Value(value = "${reference.volume}")
     private int referenceVolume;
-    @Value(value = "${reference.place.pallet")
+    @Value(value = "${reference.place.pallet}")
     private int referencePlacePallet;
 
     @Override
@@ -43,7 +45,7 @@ public class BidDatabaseServiceImpl implements BidDatabaseService {
     }
 
     @Override
-    public String checkBid(Integer id) {
+    public Boolean checkBid(Integer id) {
         Optional<Bid> optionalBid = bidRepository.findById(id);
 
         if (optionalBid.isPresent()) {
@@ -51,16 +53,12 @@ public class BidDatabaseServiceImpl implements BidDatabaseService {
             int distance = bid.getDistance();
             int price = bid.getPrice();
 
-            double cost1Km = (double) distance / price;
-            int referenceCost1KmInt = Integer.parseInt(referenceCost1Km);
+            BigDecimal cost1Km = BigDecimal.valueOf(price)
+                    .divide(BigDecimal.valueOf(distance), 2, RoundingMode.HALF_UP);
 
-            if (cost1Km > referenceCost1KmInt) {
-                return "Все плохо";
-            } else {
-                return "Все хорошо";
-            }
+            return cost1Km.compareTo(referenceCost1Km) > 0;
         } else {
-            return "Запись с указанным id не найдена";
+            throw new IllegalArgumentException("Запись с указанным id не найдена");
         }
     }
 }
