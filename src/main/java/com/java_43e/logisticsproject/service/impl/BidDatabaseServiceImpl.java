@@ -45,7 +45,7 @@ public class BidDatabaseServiceImpl implements BidDatabaseService {
     }
 
     @Override
-    public Boolean checkBid(Integer id) {
+    public Boolean checkBid1Km(Integer id) {
         Optional<Bid> optionalBid = bidRepository.findById(id);
 
         if (optionalBid.isPresent()) {
@@ -57,6 +57,71 @@ public class BidDatabaseServiceImpl implements BidDatabaseService {
                     .divide(BigDecimal.valueOf(distance), 2, RoundingMode.HALF_UP);
 
             return cost1Km.compareTo(referenceCost1Km) > 0;
+        } else {
+            throw new IllegalArgumentException("Запись с указанным id не найдена");
+        }
+    }
+
+    @Override
+    public Boolean checkBidDot(Integer id) {
+        Optional<Bid> optionalBid = bidRepository.findById(id);
+
+        if (optionalBid.isPresent()) {
+            Bid bid = optionalBid.get();
+            int dotClass = bid.getDotClass();
+            return dotClass <= referenceDotClass;
+        } else {
+            throw new IllegalArgumentException("Запись с указанным id не найдена");
+        }
+    }
+
+    @Override
+    public Boolean checkBidTemperature(Integer id) {
+        Optional<Bid> optionalBid = bidRepository.findById(id);
+
+        if (optionalBid.isPresent()) {
+            Bid bid = optionalBid.get();
+            boolean temperature = bid.isTemperature();
+            return temperature == referenceTemperature;
+        } else {
+            throw new IllegalArgumentException("Запись с указанным id не найдена");
+        }
+    }
+
+    @Override
+    public Boolean checkBidWeight(Integer id) {
+        Optional<Bid> optionalBid = bidRepository.findById(id);
+
+        if (optionalBid.isPresent()) {
+            Bid bid = optionalBid.get();
+            int weight = bid.getWeight();
+            return weight <= referenceWeight;
+        } else {
+            throw new IllegalArgumentException("Запись с указанным id не найдена");
+        }
+    }
+
+    @Override
+    public Boolean checkBidVolume(Integer id) {
+        Optional<Bid> optionalBid = bidRepository.findById(id);
+
+        if (optionalBid.isPresent()) {
+            Bid bid = optionalBid.get();
+            int volume = bid.getVolume();
+            return volume <= referenceVolume;
+        } else {
+            throw new IllegalArgumentException("Запись с указанным id не найдена");
+        }
+    }
+
+    @Override
+    public Boolean checkBidPlacePallet(Integer id) {
+        Optional<Bid> optionalBid = bidRepository.findById(id);
+
+        if (optionalBid.isPresent()) {
+            Bid bid = optionalBid.get();
+            int placePallet = bid.getPlacePallet();
+            return placePallet <= referencePlacePallet;
         } else {
             throw new IllegalArgumentException("Запись с указанным id не найдена");
         }
