@@ -40,8 +40,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
         try {
-            customerDatabaseService.findById(id); // Check if the customer exists
-            customer.setId(id); // Ensure the provided ID is used for update
+            customerDatabaseService.findById(id);
             customerDatabaseService.saveOrUpdateCustomer(customer);
             return ResponseEntity.ok(customer);
         } catch (ResourceNotFoundException ex) {

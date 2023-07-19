@@ -3,12 +3,9 @@ package com.java_43e.logisticsproject.service.impl;
 import com.java_43e.logisticsproject.entity.Bid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.java_43e.logisticsproject.repository.BidRepository;
 import com.java_43e.logisticsproject.service.database.BidDatabaseService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

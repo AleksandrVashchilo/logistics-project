@@ -5,9 +5,7 @@ import com.java_43e.logisticsproject.repository.CustomerRepository;
 import com.java_43e.logisticsproject.service.database.CustomerDatabaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +26,7 @@ public class CustomerDatabaseServiceImpl implements CustomerDatabaseService {
 
     @Override
     public void saveOrUpdateCustomer(Customer customer) {
+
         customerRepository.save(customer);
     }
 }
