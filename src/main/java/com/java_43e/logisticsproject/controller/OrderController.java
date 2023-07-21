@@ -1,6 +1,5 @@
 package com.java_43e.logisticsproject.controller;
 
-import com.java_43e.logisticsproject.entity.Cargo;
 import com.java_43e.logisticsproject.entity.Order;
 import com.java_43e.logisticsproject.service.database.OrderDatabaseService;
 import com.java_43e.logisticsproject.service.impl.ResourceNotFoundException;
