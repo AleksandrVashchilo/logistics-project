@@ -1,6 +1,7 @@
 package com.java_43e.logisticsproject.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,11 +30,20 @@ public class Vehicle {
     @Column(name = "weight_max")
     private Integer weightMax;
 
+    @Column(name = "weight_current")
+    private Integer weightCurrent;
+
     @Column(name = "volume_max")
     private Integer volumeMax;
 
+    @Column(name = "volume_current")
+    private Integer volumeCurrent;
+
     @Column(name = "place_pallet_max")
     private Integer placePalletMax;
+
+    @Column(name = "place_pallet_current")
+    private Integer placePalletCurrent;
 
     @Column(name = "is_blocked")
     private boolean isBlocked;
