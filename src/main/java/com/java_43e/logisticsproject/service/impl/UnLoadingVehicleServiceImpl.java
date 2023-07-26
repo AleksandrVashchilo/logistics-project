@@ -23,19 +23,19 @@ public class UnLoadingVehicleServiceImpl implements UnLoadingVehicleService {
     @Transactional
     public void unloadVehicle(Integer orderId) {
 
-        // 1. Найти заказ по orderId
+        // 1. Поиск заказа по orderId
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order with id: " + orderId + " not found"));
 
-        // 2. Присвоить "boolean isClosed" в таблице "orders"
+        // 2. Присвоение "boolean isClosed" в таблице "orders"
         order.setClosed(true);
         orderRepository.save(order);
 
-        // 3. Найти груз по orderId из таблицы "cargos"
+        // 3. Нахождение груза по orderId из таблицы "cargos"
         Cargo cargo = cargoRepository.findById(order.getOrderId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cargo with id: " + order.getOrderId() + " not found"));
 
-        // 4. Проверить, будет ли объем груза становиться отрицательным
+        // 4. Проверка, будет ли объем груза становиться отрицательным
         Vehicle vehicle = vehicleRepository.findById(order.getVehicleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle with id: " + order.getVehicleId() + " not found"));
 
@@ -45,10 +45,29 @@ public class UnLoadingVehicleServiceImpl implements UnLoadingVehicleService {
             throw new IllegalStateException("Vehicle's current volume cannot be negative.");
         }
 
-        // 5. Обновить "Integer volumeCurrent" в таблице "vehicles"
+        // 5. Обновляем "Integer volumeCurrent" в таблице "vehicles"
         vehicle.setVolumeCurrent(newVolumeCurrent);
+
+
+        int newWeightCurrent = vehicle.getWeightCurrent() - cargo.getWeight();
+        if (newWeightCurrent < 0) {
+            // Выбрасываем исключение и отменяем транзакцию
+            throw new IllegalStateException("Vehicle's current weight cannot be negative.");
+        }
+        // 6. Обновить "Integer weightCurrent" в таблице "vehicles"
+        vehicle.setWeightCurrent(newWeightCurrent);
+
+
+        int newPlacePalletCurrent = vehicle.getPlacePalletCurrent() - cargo.getPlacePallet();
+        if (newPlacePalletCurrent < 0) {
+            // Выбрасываем исключение и отменяем транзакцию
+            throw new IllegalStateException("Vehicle's current placePallet cannot be negative.");
+        }
+        // 7. Обновить "Integer placePalletCurrent" в таблице "vehicles"
+        vehicle.setPlacePalletCurrent(newPlacePalletCurrent);
+
+        // Сохраняем изменения в таблице "vehicles"
         vehicleRepository.save(vehicle);
     }
-
 }
 
