@@ -21,11 +21,11 @@ public class Vehicle {
     @Column(name = "driver_name", length = 50)
     private String driverName;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone", length = 50)
     private Integer phone;
 
     @Column(name = "auto_number")
-    private Integer autoNumber;
+    private String autoNumber;
 
     @Column(name = "weight_max")
     private Integer weightMax;

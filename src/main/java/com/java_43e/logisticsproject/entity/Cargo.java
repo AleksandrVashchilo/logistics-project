@@ -17,6 +17,9 @@ public class Cargo {
     @Column(name = "cargo_id")
     private Integer cargoId;
 
+    @Column(name = "order_id")
+    private Integer orderId;
+
     @Column(name = "cargo_name", length = 50)
     private String cargoName;
 
