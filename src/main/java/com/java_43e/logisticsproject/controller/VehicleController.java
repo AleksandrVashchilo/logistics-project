@@ -16,7 +16,7 @@ public class VehicleController {
 
     private final VehicleDatabaseService vehicleDatabaseService;
 
-    @GetMapping
+    @GetMapping("get-all")
     public List<Vehicle> getAllVehicles() {
         return vehicleDatabaseService.getVehicle();
     }
@@ -31,7 +31,7 @@ public class VehicleController {
         }
     }
 
-    @PostMapping
+    @PostMapping("add")
     public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle) {
         vehicleDatabaseService.saveOrUpdateVehicle(vehicle);
         return ResponseEntity.ok(vehicle);

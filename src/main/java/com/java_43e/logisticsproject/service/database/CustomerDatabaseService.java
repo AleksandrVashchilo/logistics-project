@@ -8,5 +8,5 @@ public interface CustomerDatabaseService {
 
     List<Customer> getCustomer();
     Customer findById(Integer id);
-    void saveOrUpdateCustomer(Customer customer);
+    Customer saveOrUpdateCustomer(Customer customer);
 }

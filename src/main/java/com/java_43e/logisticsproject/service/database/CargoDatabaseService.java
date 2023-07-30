@@ -10,5 +10,5 @@ public interface CargoDatabaseService {
 
     Cargo findById(Integer id);
 
-    void saveOrUpdateCargo(Cargo cargo);
+    Cargo saveOrUpdateCargo(Cargo cargo);
 }

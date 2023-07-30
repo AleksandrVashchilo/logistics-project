@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
+@RequestMapping("/bid")
 @RequiredArgsConstructor
 public class BidController {
 

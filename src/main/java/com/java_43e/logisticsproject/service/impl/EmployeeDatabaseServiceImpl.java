@@ -4,7 +4,9 @@ import com.java_43e.logisticsproject.entity.Employee;
 import com.java_43e.logisticsproject.repository.EmployeeRepository;
 import com.java_43e.logisticsproject.service.database.EmployeeDatabaseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
@@ -12,9 +14,10 @@ import java.util.List;
 public class EmployeeDatabaseServiceImpl implements EmployeeDatabaseService {
 
     private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public List<Employee> getEmployee() {
+    public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
@@ -25,7 +28,10 @@ public class EmployeeDatabaseServiceImpl implements EmployeeDatabaseService {
     }
 
     @Override
-    public void saveOrUpdateCustomer(Employee employee) {
+    @Transactional
+    public void saveOrUpdateEmployee(Employee employee) {
+        String encodedPassword = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(encodedPassword);
         employeeRepository.save(employee);
     }
 }

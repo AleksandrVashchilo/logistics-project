@@ -24,9 +24,10 @@ public class CargoDatabaseServiceImpl implements CargoDatabaseService {
     }
 
     @Override
-    public void saveOrUpdateCargo(Cargo cargo) {
+    public Cargo saveOrUpdateCargo(Cargo cargo) {
 
         cargoRepository.save(cargo);
 
+        return cargo;
     }
 }

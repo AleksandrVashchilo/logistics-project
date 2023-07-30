@@ -40,4 +40,5 @@ public class Cargo {
 
     @Column(name = "is_accepted")
     private boolean isAccepted;
+
 }

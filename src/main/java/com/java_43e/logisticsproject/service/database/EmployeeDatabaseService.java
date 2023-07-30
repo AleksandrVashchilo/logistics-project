@@ -5,8 +5,8 @@ import com.java_43e.logisticsproject.entity.Employee;
 import java.util.List;
 
 public interface EmployeeDatabaseService {
-    List<Employee> getEmployee();
+    List<Employee> getAllEmployees();
     Employee findById(Integer id);
 
-    void saveOrUpdateCustomer(Employee employee);
+    void saveOrUpdateEmployee(Employee employee);
 }

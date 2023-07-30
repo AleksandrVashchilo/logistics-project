@@ -16,9 +16,9 @@ public class EmployeeController {
 
     private final EmployeeDatabaseService employeeDatabaseService;
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<Employee> getAllEmployees() {
-        return employeeDatabaseService.getEmployee();
+        return employeeDatabaseService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
@@ -31,9 +31,9 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
-        employeeDatabaseService.saveOrUpdateCustomer(employee);
+        employeeDatabaseService.saveOrUpdateEmployee(employee);
         return ResponseEntity.ok(employee);
     }
 
@@ -41,7 +41,7 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         try {
             employeeDatabaseService.findById(id);
-            employeeDatabaseService.saveOrUpdateCustomer(employee);
+            employeeDatabaseService.saveOrUpdateEmployee(employee);
             return ResponseEntity.ok(employee);
         } catch (ResourceNotFoundException ex) {
             return ResponseEntity.notFound().build();

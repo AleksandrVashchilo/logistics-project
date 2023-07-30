@@ -17,8 +17,11 @@ public class Employee {
     @Column(name = "employee_id")
     private Integer employeeID;
 
-    @Column(name = "employee_name", length = 50)
+    @Column(name = "employee_name", length = 50, unique = true)
     private String employeeName;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "position", length = 20)
     private String position;

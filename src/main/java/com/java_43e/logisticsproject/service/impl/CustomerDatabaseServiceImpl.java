@@ -25,8 +25,9 @@ public class CustomerDatabaseServiceImpl implements CustomerDatabaseService {
     }
 
     @Override
-    public void saveOrUpdateCustomer(Customer customer) {
+    public Customer saveOrUpdateCustomer(Customer customer) {
 
         customerRepository.save(customer);
+        return customer;
     }
 }
