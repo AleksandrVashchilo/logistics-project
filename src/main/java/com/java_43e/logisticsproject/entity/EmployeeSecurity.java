@@ -7,25 +7,21 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "employees")
+@Table(name = "employee_security")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+public class EmployeeSecurity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "employee_id")
     private Integer employeeID;
-
-    @Column(name = "employee_name", length = 50, unique = true)
-    private String employeeName;
-
+    @Column(name = "login")
+    private String login;
     @Column(name = "password")
     private String password;
-
-    @Column(name = "position", length = 20)
-    private String position;
-
-    @Column(name = "is_blocked")
-    private boolean isBlocked;
+    @Column(name = "status")
+    private Status status;
 }

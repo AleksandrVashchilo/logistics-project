@@ -20,20 +20,29 @@ public class Vehicle {
     @Column(name = "driver_name", length = 50)
     private String driverName;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone", length = 50)
     private Integer phone;
 
     @Column(name = "auto_number")
-    private Integer autoNumber;
+    private String autoNumber;
 
     @Column(name = "weight_max")
     private Integer weightMax;
 
+    @Column(name = "weight_current")
+    private Integer weightCurrent;
+
     @Column(name = "volume_max")
     private Integer volumeMax;
 
+    @Column(name = "volume_current")
+    private Integer volumeCurrent;
+
     @Column(name = "place_pallet_max")
     private Integer placePalletMax;
+
+    @Column(name = "place_pallet_current")
+    private Integer placePalletCurrent;
 
     @Column(name = "is_blocked")
     private boolean isBlocked;

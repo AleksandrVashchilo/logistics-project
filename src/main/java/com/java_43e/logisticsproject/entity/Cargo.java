@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "cargo")
+@Table(name = "cargos")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cargo {
@@ -16,6 +16,9 @@ public class Cargo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cargo_id")
     private Integer cargoId;
+
+    @Column(name = "order_id")
+    private Integer orderId;
 
     @Column(name = "cargo_name", length = 50)
     private String cargoName;
@@ -37,4 +40,5 @@ public class Cargo {
 
     @Column(name = "is_accepted")
     private boolean isAccepted;
+
 }
